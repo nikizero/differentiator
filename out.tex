@@ -1,0 +1,58 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtext}
+\begin{document}
+\ Производная Функции \
+\begin{center}$f(x) = (\frac{(x+\sin  (2\cdot x+1)^{2})}{(25-24)}+y)$\end{center}\ 
+Воспользуемся методом математической индукции: \\ 
+
+\begin{center}$(2\cdot x)' = (0\cdot x+2\cdot 1)$\end{center}\ 
+упростив получим 
+
+\begin{center}$(0\cdot x+2\cdot 1) = 2$\end{center}\ 
+Теперь рассмотрим это утверждение через призму теории: \\ 
+
+\begin{center}$((2\cdot x+1))' = ((0+2)+0)$\end{center}\ 
+упростив получим 
+
+\begin{center}$((0+2)+0) = 2$\end{center}\ 
+Для соблюдения условий сходимости: \\ 
+
+\begin{center}$(\sin  (2\cdot x+1))' = \cos  (2\cdot x+1)\cdot 2$\end{center}\ 
+Нетрудно заметить, что из предыдущих выводов: \\ 
+
+\begin{center}$(\sin  (2\cdot x+1)^{2})' = 2\cdot \sin  (2\cdot x+1)^{1}\cdot \cos  (2\cdot x+1)\cdot 2$\end{center}\ 
+упростив получим 
+
+\begin{center}$2\cdot \sin  (2\cdot x+1)^{1}\cdot \cos  (2\cdot x+1)\cdot 2 = 2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2$\end{center}\ 
+Для соблюдения условий сходимости: \\ 
+
+\begin{center}$((x+\sin  (2\cdot x+1)^{2}))' = (1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)$\end{center}\ 
+Аналогично основным определениям, сформулируем: \\ 
+
+\begin{center}$((25-24))' = (0-0)$\end{center}\ 
+упростив получим 
+
+\begin{center}$(0-0) = 0$\end{center}\ 
+Известная теорема позволяет установить, что: \\ 
+
+\begin{center}$(\frac{(x+\sin  (2\cdot x+1)^{2})}{(25-24)})' = \frac{((1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)\cdot (25-24)-(x+\sin  (2\cdot x+1)^{2})\cdot 0)}{(25-24)^{2}}$\end{center}\ 
+упростив получим 
+
+\begin{center}$\frac{((1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)\cdot (25-24)-(x+\sin  (2\cdot x+1)^{2})\cdot 0)}{(25-24)^{2}} = (1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)$\end{center}\ 
+Аналогично основным определениям, сформулируем: \\ 
+
+\begin{center}$((\frac{(x+\sin  (2\cdot x+1)^{2})}{(25-24)}+y))' = (\frac{(1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)}{1}+0)$\end{center}\ 
+упростив получим 
+
+\begin{center}$(\frac{(1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)}{1}+0) = (1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)$\end{center}\ 
+В результате получаем: \
+\begin{center}$ (\frac{(x+\sin  (2\cdot x+1)^{2})}{(25-24)}+y)' = (1+2\cdot \sin  (2\cdot x+1)\cdot \cos  (2\cdot x+1)\cdot 2)$\end{center}\ 
+\subsection{Ответ}\ \newline
+Разложение ряда Тейлора в точке 0:\begin{center}
+$f(x) = \frac{0.708073}{1} + o((x - 0)^3)$ \end{center}\ 
+\end{document}
