@@ -417,32 +417,45 @@ static void ConvertNodeToNumber(Tree* tree, Node** node_ref, const double num, A
 static bool OptimizeConst(Tree* tree, Node* node, Changes* change, AppContext* context);
 static Tree_type OptimizeDeleteNeutrals(Tree* tree, Node** parent, Node* node, Changes* change, AppContext* context);
 
+static void SaveCurrentTreeToBuffer(Tree* tree, AppContext* context, char* buf) {
+    FILE* buf_file = fopen("buf.txt", "w+");
+    if (buf_file) {
+        DumpNode(tree->root, context->variableNames, buf_file);
+        rewind(buf_file);
+        fgets(buf, 1000, buf_file);
+        fclose(buf_file);
+    }
+}
+
+static void PrintOptimizationResult(Tree* tree, AppContext* context, const char* buf) {
+    FILE* f = GetFileName();
+    if (f) {
+        fprintf(f, "%s\n", "упростив получим \n");
+        fprintf(f, "\\begin{center}$");
+        fprintf(f, "%s", buf);
+        fprintf(f, " = ");
+        DumpNode(tree->root, context->variableNames, STANDART_TEX);
+        fprintf(f, "$\\end{center}\\ \n");
+    }
+}
+
+static Changes PerformOptimizationStep(Tree* tree, AppContext* context, char* buf) {
+    Changes change = NO_CHANGES;
+    SaveCurrentTreeToBuffer(tree, context, buf);
+    OptimizeConst(tree, tree->root, &change, context);
+    OptimizeDeleteNeutrals(tree, &tree->root, tree->root, &change, context);
+    return change;
+}
+
 void Optimize(Tree* tree, AppContext* context, OptimizePrint print) {
     while (true) {
-        Changes change = NO_CHANGES;
         char buf[MAX_TOKENS] = {};
-        {
-            FILE* buf_file = fopen("buf.txt", "w+");
-            if (buf_file) {
-                DumpNode(tree->root, context->variableNames, buf_file);
-                rewind(buf_file);
-                fgets(buf, 1000, buf_file);
-                fclose(buf_file);
-            }
-        }
-        OptimizeConst(tree, tree->root, &change, context);
-        OptimizeDeleteNeutrals(tree, &tree->root, tree->root, &change, context);
+        Changes change = PerformOptimizationStep(tree, context, buf);
+
         if (change != NO_CHANGES && print == PRINT_OPTIMIZE) {
-            FILE* f = GetFileName();
-            if (f) {
-                fprintf(f, "%s\n", "упростив получим \n");
-                fprintf(f, "\\begin{center}$");
-                fprintf(f, "%s", buf);
-                fprintf(f, " = ");
-                DumpNode(tree->root, context->variableNames, STANDART_TEX);
-                fprintf(f, "$\\end{center}\\ \n");
-            }
+            PrintOptimizationResult(tree, context, buf);
         }
+
         if (change == NO_CHANGES)
             break;
     }
